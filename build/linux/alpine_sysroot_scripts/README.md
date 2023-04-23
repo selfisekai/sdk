@@ -8,6 +8,11 @@ On Alpine Linux, run the script directly:
 ./build/linux/alpine_sysroot_scripts/install-sysroot.sh
 ```
 
+Script accepts a list of architectures to install sysroots for, like this:
+``` sh
+./build/linux/alpine_sysroot_scripts/install-sysroot.sh aarch64 riscv64 x86_64
+```
+
 On other linux systems, you can run the script with Alpine Linux container:
 
 ``` sh

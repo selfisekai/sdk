@@ -20,9 +20,9 @@ SCRIPT="$(readlink -f -- "$0")"
 
 WORKDIR="$(dirname -- "$(dirname -- "$SCRIPT")")"
 
-xargs -n 1 -- sh -xc 'apk add --root "$1/alpine-linux-$2-sysroot" --repositories-file /etc/apk/repositories --allow-untrusted --arch "$2" --no-cache --no-scripts --initdb -- alpine-base alpine-sdk linux-headers' -- "$WORKDIR" <<'EOF'
-aarch64
-armv7
-x86
-x86_64
-EOF
+arch_list="$@"
+[ ! -z "$arch_list" ] || arch_list="aarch64 armv7 x86 x86_64"
+for arch in $arch_list; do
+  echo $arch
+  apk add --root "$WORKDIR/alpine-linux-$arch-sysroot" --repositories-file /etc/apk/repositories --allow-untrusted --arch "$arch" --no-cache --no-scripts --initdb -- alpine-base alpine-sdk linux-headers
+done
